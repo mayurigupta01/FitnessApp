@@ -2,6 +2,7 @@ package com.example.fitnessapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
@@ -121,6 +122,13 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.insert(TABLE_ACTIVITIES, null, values);
 
         db.close();
+    }
+
+    public Cursor getActivities() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String activityQuery = "SELECT * FROM " + TABLE_ACTIVITIES;
+        Cursor cursor = getReadableDatabase().rawQuery(activityQuery, null);
+        return cursor;
     }
 
     @Override

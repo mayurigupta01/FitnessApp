@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.MyViewHolder> {
 
     private ArrayList<ActivitiesModel> myActivities = new ArrayList<ActivitiesModel>();
-    private TextView activity, date, time;
 
     public ActivitiesAdapter(ArrayList<ActivitiesModel> myActivities) {
         this.myActivities = myActivities;
@@ -23,21 +22,26 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item, parent, false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.health_activity_layout, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        holder.activity.setText(myActivities.get(position).getActivity());
+        holder.date.setText(myActivities.get(position).getDate());
+        holder.time.setText(myActivities.get(position).getTime());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return myActivities.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView activity, date, time;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             activity = itemView.findViewById(R.id.activityName);
