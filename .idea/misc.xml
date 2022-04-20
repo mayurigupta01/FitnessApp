@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_activities.xml" value="0.21048632218844984" />
+        <entry key="app/src/main/res/layout/activity_activities_notification.xml" value="0.21048632218844984" />
+        <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.21048632218844984" />
         <entry key="app/src/main/res/layout/activity_health.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/health_activity_layout.xml" value="0.2137791286727457" />

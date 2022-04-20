@@ -110,18 +110,24 @@ public class SQLhelper extends SQLiteOpenHelper {
     }
 
     // Method to add a new health activity
-    public void addHealthActivity(String activity, String date, String time) {
+    public String addHealthActivity(String activityName, String activityDate, String activityTime) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(ACTIVITY_COL, activity);
-        values.put(ACTIVITY_DATE_COL, date);
-        values.put(ACTIVITY_TIME_COL, time);
+        values.put(ACTIVITY_COL, activityName);
+        values.put(ACTIVITY_DATE_COL, activityDate);
+        values.put(ACTIVITY_TIME_COL, activityTime);
 
-        db.insert(TABLE_ACTIVITIES, null, values);
+        long result = db.insert(TABLE_ACTIVITIES, null, values);
 
         db.close();
+
+        if(result == -1) {
+            return "Failed to add activity";
+        } else {
+            return "Successfully added activity";
+        }
     }
 
     public Cursor getActivities() {

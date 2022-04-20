@@ -1,35 +1,35 @@
 package com.example.fitnessapp;
 
 public class ActivitiesModel {
-    String activity, date, time;
+    String activityName, activityDate, activityTime;
 
-    public ActivitiesModel(String activity, String date, String time) {
-        this.activity = activity;
-        this.date = date;
-        this.time = time;
+    public ActivitiesModel(String activityName, String activityDate, String activityTime) {
+        this.activityName = activityName;
+        this.activityDate = activityDate;
+        this.activityTime = activityTime;
     }
 
-    public void setActivity(String activity) {
-        this.activity = activity;
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setActivityDateDate(String activityDate) {
+        this.activityDate = activityDate;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setActivityTimeTime(String activityTime) {
+        this.activityTime = activityTime;
     }
 
     public String getActivity() {
-        return activity;
+        return activityTime;
     }
 
-    public String getDate() {
-        return date;
+    public String getActivityDate() {
+        return activityTime;
     }
 
-    public String getTime() {
-        return time;
+    public String getActivityTime() {
+        return activityTime;
     }
 }

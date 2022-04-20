@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessApp">
         <activity
+            android:name=".activitiesNotification"
+            android:exported="false" />
+        <activity
+            android:name=".ActivitiesAlarm"
+            android:exported="false" />
+        <activity
             android:name=".Activities"
             android:exported="false" />
         <activity

@@ -28,9 +28,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.activity.setText(myActivities.get(position).getActivity());
-        holder.date.setText(myActivities.get(position).getDate());
-        holder.time.setText(myActivities.get(position).getTime());
+        holder.activityName.setText(myActivities.get(position).getActivity());
+        holder.activityDate.setText(myActivities.get(position).getActivityDate());
+        holder.activityTime.setText(myActivities.get(position).getActivityTime());
     }
 
     @Override
@@ -40,13 +40,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView activity, date, time;
+        TextView activityName, activityDate, activityTime;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            activity = itemView.findViewById(R.id.activityName);
-            date = itemView.findViewById(R.id.activityDate);
-            time = itemView.findViewById(R.id.activityTime);
+            activityName = itemView.findViewById(R.id.activityName);
+            activityDate = itemView.findViewById(R.id.activityDate);
+            activityTime = itemView.findViewById(R.id.activityTime);
         }
     }
 }
