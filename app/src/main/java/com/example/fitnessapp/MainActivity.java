@@ -1,5 +1,6 @@
 package com.example.fitnessapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
         //clear fields
         clearFields();
 
+        //direct to login
+        loginActivity(view);
+
+    }
+
+    public void loginActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 
 
