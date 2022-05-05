@@ -2,6 +2,7 @@ package com.example.fitnessapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
@@ -10,6 +11,13 @@ public class SQLhelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "fitnessdb";
     private static final int DB_VERSION = 1;
+
+    // Table and Columns for Customer Health Activities
+    private static final String TABLE_ACTIVITIES = "activities";
+    private static final String ACTIVITY_COL = "activity";
+    private static final String ACTIVITY_DATE_COL = "activityDate";
+    private static final String ACTIVITY_TIME_COL = "activityTime";
+
     private static final String TABLE_NAME = "customers";
     //define columns for Customer profile
     private static final String ID_COL = "user_id";
@@ -54,9 +62,17 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + MENTALCONDITION_COL + " TEXT,"
                     + DAILYCALORIE_COL + " TEXT)";
 
+            String activityQuery = "CREATE TABLE " + TABLE_ACTIVITIES + " ("
+                    + ID_COL + " TEXT,"
+                    + ACTIVITY_COL + " TEXT,"
+                    + ACTIVITY_DATE_COL + " TEXT,"
+                    + ACTIVITY_TIME_COL + " TEXT,"
+                    + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+
             // at last we are calling a exec sql
             // method to execute above sql query
             db.execSQL(query);
+            db.execSQL(activityQuery);
         }
 
 
@@ -93,10 +109,39 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Method to add a new health activity
+    public String addHealthActivity(String activityName, String activityDate, String activityTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(ACTIVITY_COL, activityName);
+        values.put(ACTIVITY_DATE_COL, activityDate);
+        values.put(ACTIVITY_TIME_COL, activityTime);
+
+        long result = db.insert(TABLE_ACTIVITIES, null, values);
+
+        db.close();
+
+        if(result == -1) {
+            return "Failed to add activity";
+        } else {
+            return "Successfully added activity";
+        }
+    }
+
+    public Cursor getActivities() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String activityQuery = "SELECT * FROM " + TABLE_ACTIVITIES;
+        Cursor cursor = getReadableDatabase().rawQuery(activityQuery, null);
+        return cursor;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // this method is called to check if the table exists already.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         onCreate(db);
     }
 

@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,16 +16,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessApp">
-
         <activity
+
             android:name="com.example.fitnessapp.MainActivity"
             android:exported="true" />
         <activity
             android:name="com.example.fitnessapp.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".activitiesNotification"
+            android:exported="false" />
+        <activity
+            android:name="com.example.fitnessapp.ActivitiesAlarm"
+            android:exported="false" />
+        <activity
+            android:name=".Activities"
+            android:exported="false" />
+        <activity
+            android:name=".HealthActivity"
+            android:exported="false" />
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
     </application>
+
 </manifest>
