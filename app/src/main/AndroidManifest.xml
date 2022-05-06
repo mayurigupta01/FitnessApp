@@ -16,25 +16,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessApp">
-        <activity
 
-            android:name="com.example.fitnessapp.MainActivity"
-            android:exported="true" />
         <activity
-            android:name="com.example.fitnessapp.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
+
         <activity
             android:name=".activitiesNotification"
             android:exported="false" />
-        <activity
-            android:name="com.example.fitnessapp.ActivitiesAlarm"
-            android:exported="false" />
+
         <activity
             android:name=".Activities"
             android:exported="false" />
         <activity
             android:name=".HealthActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".HealthDashBoard"
+            android:exported="false" />
+        <activity
+            android:name=".WeightLoss"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.fitnessapp.MainActivity"
+            android:exported="true" >
 
 
             <intent-filter>
@@ -44,5 +51,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

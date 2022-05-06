@@ -5,16 +5,13 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-<<<<<<< HEAD
+        <entry key="app/src/main/res/layout/activity_activities_notification.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/activity_health.xml" value="0.21188026590550196" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2953125" />
-=======
-        <entry key="app/src/main/res/layout/activity_activities.xml" value="0.21048632218844984" />
-        <entry key="app/src/main/res/layout/activity_activities_notification.xml" value="0.21048632218844984" />
-        <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.21048632218844984" />
-        <entry key="app/src/main/res/layout/activity_health.xml" value="0.1" />
->>>>>>> 95a9f3880d4ec089e878c01257cc54af4fc75311
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/health_activity_layout.xml" value="0.2137791286727457" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24001770019531252" />
+        <entry key="app/src/main/res/layout/health_activity_layout.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/health_dashboard.xml" value="0.3050369262695311" />
+        <entry key="app/src/main/res/layout/weight_loss.xml" value="0.14361702127659576" />
       </map>
     </option>
   </component>

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class SQLhelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "fitnessdb";
@@ -32,7 +34,7 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String PHYSICALCONDITION_COL = "physicalcondition";
     private static final String MENTALCONDITION_COL = "mentalcondition";
     private static final String DAILYCALORIE_COL = "dailycalorie";
-
+    private static final String PASSWORD_COL = "password";
 
     public SQLhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -60,7 +62,8 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + WATERINTAKE_COL + " TEXT,"
                     + PHYSICALCONDITION_COL + " TEXT,"
                     + MENTALCONDITION_COL + " TEXT,"
-                    + DAILYCALORIE_COL + " TEXT)";
+                    + DAILYCALORIE_COL + " TEXT,"
+                    + PASSWORD_COL +" TEXT)";
 
             String activityQuery = "CREATE TABLE " + TABLE_ACTIVITIES + " ("
                     + ID_COL + " TEXT,"
@@ -79,7 +82,7 @@ public class SQLhelper extends SQLiteOpenHelper {
     // this method is use to add new user to our SQLite Database.
     public void addNewUser(String name , String email , String gender , String weight , String height ,
                            String age , String sleepHrs ,String waterIntake , String physicalCondition ,
-                           String mentalCondition, String dailyCalorieIntake) {
+                           String mentalCondition, String dailyCalorieIntake , String pass) {
 
         // on below line we are creating a variable for
         // our sqlite database and calling writable method as we update data to db.
@@ -100,6 +103,7 @@ public class SQLhelper extends SQLiteOpenHelper {
         values.put(PHYSICALCONDITION_COL, physicalCondition);
         values.put(MENTALCONDITION_COL, mentalCondition);
         values.put(DAILYCALORIE_COL, dailyCalorieIntake);
+        values.put(PASSWORD_COL,pass);
 
         // after adding all values we are passing content values to our table.
         db.insert(TABLE_NAME, null, values);
@@ -144,6 +148,42 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         onCreate(db);
     }
+
+
+    public ArrayList<CustomerModel> readCustomerData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        System.out.println(db);
+        Cursor cursorCourses = db.rawQuery("SELECT * FROM " + TABLE_NAME
+                , null);
+        // on below line we are creating a new array list.
+        ArrayList<CustomerModel> customerModelArrayList = new ArrayList<>();
+        // moving our cursor to first position.
+        if (cursorCourses.moveToFirst()) {
+            do {
+                customerModelArrayList.add(new CustomerModel(cursorCourses.getInt(0),
+                        cursorCourses.getString(1),
+                        cursorCourses.getString(2),
+                        cursorCourses.getString(3),
+                        cursorCourses.getString(4),
+                        cursorCourses.getString(5),
+                        cursorCourses.getString(6),
+                        cursorCourses.getString(7),
+                        cursorCourses.getString(8),
+                        cursorCourses.getString(9),
+                        cursorCourses.getString(10),
+                        cursorCourses.getString(11),
+                        cursorCourses.getString(12)));
+            }
+            while (cursorCourses.moveToNext()) ;
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        System.out.println(customerModelArrayList);
+        cursorCourses.close();
+        return customerModelArrayList;
+
+    }
+
 
 
 }

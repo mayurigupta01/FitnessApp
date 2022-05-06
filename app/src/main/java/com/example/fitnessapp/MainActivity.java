@@ -10,17 +10,25 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
      EditText name , email , gender , weight , height ,
              age , sleepHrs , waterIntake ,
-             physicalCondition ,medicalCondition , dailyCalorieIntake;
+             physicalCondition ,medicalCondition , dailyCalorieIntake , password;
      Button register;
 
      String s_name , s_email , s_gender , s_weight , s_height , s_age ,
              s_sleepHrs , s_waterIntake , s_physicalCondition ,
-             s_medicalCondition , s_dailyCalorieIntake;
+             s_medicalCondition , s_dailyCalorieIntake , s_password;
 
      private SQLhelper sqlhelper;
+
+     public static List<CustomerModel> customerData ;
+     public static String customerName;
+     public static String customerEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sqlhelper = new SQLhelper(MainActivity.this);
-        name =(EditText) findViewById(R.id.name);
-        email = (EditText) findViewById(R.id.email);
-        gender = (EditText) findViewById(R.id.gender);
-        weight = (EditText) findViewById(R.id.weight);
-        height = (EditText) findViewById(R.id.height) ;
-        age = (EditText) findViewById(R.id.age);
-        sleepHrs = (EditText) findViewById(R.id.sleepHours);
-        waterIntake = (EditText) findViewById(R.id.water);
-        physicalCondition = (EditText) findViewById(R.id.physicalCondition);
-        medicalCondition = (EditText) findViewById(R.id.mentalCondition);
-        dailyCalorieIntake = (EditText) findViewById(R.id.calorie);
-
+        name =(EditText) findViewById(R.id.editTextTextPersonName);
+        email = (EditText) findViewById(R.id.editTextTextEmail2);
+        gender = (EditText) findViewById(R.id.editTextTextGender);
+        weight = (EditText) findViewById(R.id.editTextTextWeight);
+        height = (EditText) findViewById(R.id.editTextTextHeight) ;
+        age = (EditText) findViewById(R.id.editTextTextAge);
+        sleepHrs = (EditText) findViewById(R.id.editTextTextSleep);
+        waterIntake = (EditText) findViewById(R.id.editTextTextWaterIntake);
+        physicalCondition = (EditText) findViewById(R.id.editTextTextPhysicalCondition);
+        medicalCondition = (EditText) findViewById(R.id.editTextTextMentalCondition);
+        dailyCalorieIntake = (EditText) findViewById(R.id.editTextTextCalorieIntake);
+        password = (EditText) findViewById(R.id.editTextTextPassword);
 
 
     }
@@ -62,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("userDetails", "Successful entry on form");
         Log.e("DBUpdate", "Store into DB");
         sqlhelper.addNewUser(s_name,s_email,s_gender,s_weight,s_height,s_age,s_sleepHrs,s_waterIntake,
-                             s_physicalCondition,s_medicalCondition,s_dailyCalorieIntake);
+                             s_physicalCondition,s_medicalCondition,s_dailyCalorieIntake, s_password);
 
         // after adding the data we are displaying a toast message.
         Toast.makeText(MainActivity.this, "You have Registered successfully", Toast.LENGTH_SHORT).show();
@@ -70,8 +78,13 @@ public class MainActivity extends AppCompatActivity {
         //clear fields
         clearFields();
 
+        //get the customer data
+        customerData = ReaderController.getCustomerModel(sqlhelper);
+
         //direct to login
         loginActivity(view);
+
+
 
     }
 
@@ -83,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void enterUserDetails(){
         s_name = name.getText().toString();
+        customerName = s_name;
         s_email = email.getText().toString();
         s_gender = gender.getText().toString();
         s_weight = weight.getText().toString();
@@ -93,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         s_medicalCondition = medicalCondition.getText().toString();
         s_physicalCondition = physicalCondition.getText().toString();
         s_dailyCalorieIntake = dailyCalorieIntake.getText().toString();
+        s_password = password.getText().toString();
+
 
     }
 
@@ -108,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
         physicalCondition.setText("");
         medicalCondition.setText("");
         dailyCalorieIntake.setText("");
+        password.setText("");
+    }
+
+
+    public void onClickLoginFromHome(View view){
+        customerData = ReaderController.getCustomerModel(sqlhelper);
+        Log.e("login", "login from home page");
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+
     }
 
 }
