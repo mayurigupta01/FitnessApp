@@ -35,6 +35,7 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String MENTALCONDITION_COL = "mentalcondition";
     private static final String DAILYCALORIE_COL = "dailycalorie";
     private static final String PASSWORD_COL = "password";
+    private static final String BMI_COL = "bmi";
 
     public SQLhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -63,6 +64,7 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + PHYSICALCONDITION_COL + " TEXT,"
                     + MENTALCONDITION_COL + " TEXT,"
                     + DAILYCALORIE_COL + " TEXT,"
+                    + BMI_COL + " TEXT,"
                     + PASSWORD_COL +" TEXT)";
 
             String activityQuery = "CREATE TABLE " + TABLE_ACTIVITIES + " ("
@@ -82,7 +84,7 @@ public class SQLhelper extends SQLiteOpenHelper {
     // this method is use to add new user to our SQLite Database.
     public void addNewUser(String name , String email , String gender , String weight , String height ,
                            String age , String sleepHrs ,String waterIntake , String physicalCondition ,
-                           String mentalCondition, String dailyCalorieIntake , String pass) {
+                           String mentalCondition, String dailyCalorieIntake , String bmi , String pass) {
 
         // on below line we are creating a variable for
         // our sqlite database and calling writable method as we update data to db.
@@ -103,6 +105,7 @@ public class SQLhelper extends SQLiteOpenHelper {
         values.put(PHYSICALCONDITION_COL, physicalCondition);
         values.put(MENTALCONDITION_COL, mentalCondition);
         values.put(DAILYCALORIE_COL, dailyCalorieIntake);
+        values.put(BMI_COL,bmi);
         values.put(PASSWORD_COL,pass);
 
         // after adding all values we are passing content values to our table.
@@ -172,7 +175,8 @@ public class SQLhelper extends SQLiteOpenHelper {
                         cursorCourses.getString(9),
                         cursorCourses.getString(10),
                         cursorCourses.getString(11),
-                        cursorCourses.getString(12)));
+                        cursorCourses.getString(12),
+                        cursorCourses.getString(13)));
             }
             while (cursorCourses.moveToNext()) ;
         }

@@ -14,6 +14,7 @@ public class CustomerModel {
     public String customerPhysicalCondition;
     public String customerMedicalCondition;
     public String customerDailyCalorieIntake;
+    public String customerbmi;
     public String customerPassword;
 
 
@@ -22,7 +23,8 @@ public class CustomerModel {
     public CustomerModel(int user_id, String customerName, String customerEmail,
                          String customerGender, String customerWeight, String customerHeight,
                          String customerAge, String customerSleep, String customerWaterIntake,
-                         String customerPhysicalCondition, String customerMedicalCondition, String customerDailyCalorieIntake, String customerPassword) {
+                         String customerPhysicalCondition, String customerMedicalCondition,
+                         String customerDailyCalorieIntake, String customerbmi,String customerPassword) {
         this.user_id = user_id;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -35,6 +37,7 @@ public class CustomerModel {
         this.customerPhysicalCondition = customerPhysicalCondition;
         this.customerMedicalCondition = customerMedicalCondition;
         this.customerDailyCalorieIntake = customerDailyCalorieIntake;
+        this.customerbmi = customerbmi;
         this.customerPassword = customerPassword;
     }
 

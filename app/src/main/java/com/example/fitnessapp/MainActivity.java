@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
      String s_name , s_email , s_gender , s_weight , s_height , s_age ,
              s_sleepHrs , s_waterIntake , s_physicalCondition ,
-             s_medicalCondition , s_dailyCalorieIntake , s_password;
+             s_medicalCondition , s_dailyCalorieIntake  , s_bmi,s_password;
+
 
      private SQLhelper sqlhelper;
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("userDetails", "Successful entry on form");
         Log.e("DBUpdate", "Store into DB");
         sqlhelper.addNewUser(s_name,s_email,s_gender,s_weight,s_height,s_age,s_sleepHrs,s_waterIntake,
-                             s_physicalCondition,s_medicalCondition,s_dailyCalorieIntake, s_password);
+                             s_physicalCondition,s_medicalCondition,s_dailyCalorieIntake,s_bmi, s_password);
 
         // after adding the data we are displaying a toast message.
         Toast.makeText(MainActivity.this, "You have Registered successfully", Toast.LENGTH_SHORT).show();
@@ -107,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         s_medicalCondition = medicalCondition.getText().toString();
         s_physicalCondition = physicalCondition.getText().toString();
         s_dailyCalorieIntake = dailyCalorieIntake.getText().toString();
+        int bmi =  Integer.parseInt(s_weight) * 703 / ( Integer.parseInt(s_height ) * Integer.parseInt(s_height));
+        s_bmi = Integer.toString(bmi);
         s_password = password.getText().toString();
 
 
@@ -136,4 +139,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //BMI =
 }
