@@ -78,4 +78,13 @@ public class HealthDashBoard extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void showNutritionalFitness(View v){
+        Log.e("nutritional fitness" , "getting nutrional health data ");
+        Intent intent = new Intent(HealthDashBoard.this, NutritionalHealth.class);
+        startActivity(intent);
+    }
+
+
+
 }

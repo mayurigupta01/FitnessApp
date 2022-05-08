@@ -35,6 +35,10 @@
         <activity
             android:name=".HealthDashBoard"
             android:exported="false" />
+
+        <activity
+            android:name=".NutritionalHealth"
+            android:exported="false" />
         <activity
             android:name=".WeightLoss"
             android:exported="false" />

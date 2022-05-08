@@ -99,6 +99,8 @@
         android:layout_height="28dp"
         android:layout_marginTop="24dp"
         android:text="Nutritional fitness"
+        android:clickable="true"
+        android:onClick="showNutritionalFitness"
         android:textColor="#FF5722"
         android:textSize="18dp"
         android:textStyle="bold"
@@ -123,18 +125,17 @@
 
     <TextView
         android:id="@+id/textViewActivityHeading"
-        android:layout_width="193dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="238dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="84dp"
         android:text="Track your Health Activity"
-        android:textColor="#FF5722"
+        android:textColor="@color/white"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNutritional" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
