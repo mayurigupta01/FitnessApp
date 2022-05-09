@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.MyViewHolder> {
 
-    private ArrayList<ActivitiesModel> myActivities = new ArrayList<ActivitiesModel>();
+    ArrayList<ActivitiesModel> myActivities = new ArrayList<ActivitiesModel>();
 
     public ActivitiesAdapter(ArrayList<ActivitiesModel> myActivities) {
         this.myActivities = myActivities;
@@ -22,7 +22,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.health_activity_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_adapter, parent, false);
         return new MyViewHolder(view);
     }
 

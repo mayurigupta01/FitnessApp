@@ -10,53 +10,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:orientation="vertical"
-            app:backgroundTint="@null">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Reminder Here..."
+                android:layout_margin="10dp"
+                android:text="Enter A Health Activity"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_margin="10dp"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/activityName"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_margin="10dp"
+                android:hint="Health Activity Name" />
 
-                android:hint="Enter The Task" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
-                    android:id="@+id/datebutton"
+                    android:id="@+id/dateButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:layout_weight="0.5"
-                    android:text="date" />
+                    android:layout_margin="5dp"
+                    android:text="Choose Date" />
+
                 <Button
                     android:id="@+id/timeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:layout_weight="0.5"
-                    android:text="time" />
+                    android:layout_margin="5dp"
+                    android:text="Choose Time" />
             </LinearLayout>
+
             <Button
-                android:id="@+id/submitbutton"
+                android:id="@+id/submitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Save" />
+                android:text="Finish" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

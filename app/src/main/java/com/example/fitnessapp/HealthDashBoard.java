@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class HealthDashBoard extends AppCompatActivity {
-    private List<CustomerModel> customerData = MainActivity.customerData;
+     private List<CustomerModel> customerData = MainActivity.customerData;
      private String customerName = MainActivity.customerName;
      private String customerEmail = MainActivity.customerEmail;
      private String healthIndex;
@@ -68,8 +68,7 @@ public class HealthDashBoard extends AppCompatActivity {
                }
              }
          }
-
-         }
+    }
 
 
     public void showWeightLossSuggestions(View v){
@@ -78,13 +77,14 @@ public class HealthDashBoard extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void showNutritionalFitness(View v){
         Log.e("nutritional fitness" , "getting nutrional health data ");
         Intent intent = new Intent(HealthDashBoard.this, NutritionalHealth.class);
         startActivity(intent);
     }
 
-
-
+    public void healthActivity(View view) {
+        Intent intent = new Intent(HealthDashBoard.this, HealthActivity.class);
+        startActivity(intent);
+    }
 }

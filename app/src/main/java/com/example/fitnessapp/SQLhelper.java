@@ -16,6 +16,7 @@ public class SQLhelper extends SQLiteOpenHelper {
 
     // Table and Columns for Customer Health Activities
     private static final String TABLE_ACTIVITIES = "activities";
+    private static final String ACTIVITY_ID_COL = "activityID";
     private static final String ACTIVITY_COL = "activity";
     private static final String ACTIVITY_DATE_COL = "activityDate";
     private static final String ACTIVITY_TIME_COL = "activityTime";
@@ -68,11 +69,13 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + PASSWORD_COL +" TEXT)";
 
             String activityQuery = "CREATE TABLE " + TABLE_ACTIVITIES + " ("
+                    //+ ACTIVITY_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ID_COL + " TEXT,"
                     + ACTIVITY_COL + " TEXT,"
                     + ACTIVITY_DATE_COL + " TEXT,"
                     + ACTIVITY_TIME_COL + " TEXT,"
                     + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+            //String activityQuery = "create table " + TABLE_ACTIVITIES + " (id integer primary key autoincrement, " + ACTIVITY_COL + " text, " + ACTIVITY_DATE_COL + " text, " + ACTIVITY_TIME_COL + " text)";
 
             // at last we are calling a exec sql
             // method to execute above sql query
@@ -117,11 +120,12 @@ public class SQLhelper extends SQLiteOpenHelper {
     }
 
     // Method to add a new health activity
-    public String addHealthActivity(String activityName, String activityDate, String activityTime) {
+    public String addHealthActivity(int userID, String activityName, String activityDate, String activityTime) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
+        values.put(ID_COL, userID);
         values.put(ACTIVITY_COL, activityName);
         values.put(ACTIVITY_DATE_COL, activityDate);
         values.put(ACTIVITY_TIME_COL, activityTime);
@@ -137,10 +141,10 @@ public class SQLhelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getActivities() {
+    public Cursor getActivities(int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String activityQuery = "SELECT * FROM " + TABLE_ACTIVITIES;
-        Cursor cursor = getReadableDatabase().rawQuery(activityQuery, null);
+        String activityQuery = "SELECT * FROM " + TABLE_ACTIVITIES + " WHERE user_id = " + userID;
+        Cursor cursor = db.rawQuery(activityQuery, null);
         return cursor;
     }
 
