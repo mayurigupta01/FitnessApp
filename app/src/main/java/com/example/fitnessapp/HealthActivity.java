@@ -1,3 +1,6 @@
+// Health activity and notification was created with help from the following source:
+// https://data-flair.training/blogs/android-task-reminder-app/
+
 package com.example.fitnessapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthActivity extends AppCompatActivity {
 
@@ -20,24 +24,31 @@ public class HealthActivity extends AppCompatActivity {
     ArrayList<ActivitiesModel> myActivities = new ArrayList<ActivitiesModel>();
     ActivitiesAdapter myActivitiesAdapter;
 
+    private List<CustomerModel> customerData = MainActivity.customerData;
+    private String customerEmail = MainActivity.customerEmail;
+    int userID;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
 
-        myRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HealthActivity.this);
-        //myRecyclerView.setLayoutManager(linearLayoutManager);
-        newActivityButton = (FloatingActionButton) findViewById(R.id.new_activity);
-        newActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HealthActivity.this, Activities.class);
-                startActivity(intent);
-            }
+        myRecyclerView = findViewById(R.id.recyclerView);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        newActivityButton = findViewById(R.id.new_activity);
+        newActivityButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), Activities.class);
+            startActivity(intent);
         });
 
-        Cursor cursor = new SQLhelper(HealthActivity.this).getActivities();
+        for(int i = 0; i < customerData.size(); i++) {
+            if(customerData.get(i).customerEmail.equalsIgnoreCase(customerEmail)) {
+                userID = customerData.get(i).user_id;
+            }
+        }
+
+        Cursor cursor = new SQLhelper(getApplicationContext()).getActivities(userID);
         while(cursor.moveToNext()) {
             ActivitiesModel activitiesModel = new ActivitiesModel(cursor.getString(1), cursor.getString(2), cursor.getString(3));
             myActivities.add(activitiesModel);
@@ -45,5 +56,10 @@ public class HealthActivity extends AppCompatActivity {
 
         myActivitiesAdapter = new ActivitiesAdapter(myActivities);
         myRecyclerView.setAdapter((myActivitiesAdapter));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

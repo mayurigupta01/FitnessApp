@@ -8,7 +8,10 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class Activities extends AppCompatActivity {
 
@@ -28,80 +33,73 @@ public class Activities extends AppCompatActivity {
     private EditText myActivity;
     String activityNotifyTime;
 
+    private List<CustomerModel> customerData = MainActivity.customerData;
+    private String customerEmail = MainActivity.customerEmail;
+    int userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities);
 
-        myActivity = (EditText) findViewById(R.id.activityName);
-        myDateButton = (Button) findViewById(R.id.datebutton);
-        myTimeButton = (Button) findViewById(R.id.timeButton);
-        mySubmitButton = (Button) findViewById(R.id.submitbutton);
+        myActivity = findViewById(R.id.activityName);
+        myDateButton = findViewById(R.id.dateButton);
+        myTimeButton = findViewById(R.id.timeButton);
+        mySubmitButton = findViewById(R.id.submitButton);
 
-        myDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setActivityDate();
+        myDateButton.setOnClickListener(view -> setActivityDate());
+
+        myTimeButton.setOnClickListener(view -> setActivityTime());
+
+        mySubmitButton.setOnClickListener(view -> {
+            String activityName = myActivity.getText().toString().trim();
+            String activityDate = myDateButton.getText().toString().trim();
+            String activityTime = myTimeButton.getText().toString().trim();
+
+            for(int i = 0; i < customerData.size(); i++) {
+                if(customerData.get(i).customerEmail.equalsIgnoreCase(customerEmail)) {
+                    userID = customerData.get(i).user_id;
+                }
             }
-        });
 
-        myTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setActivityTime();
-            }
-        });
-
-        mySubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String activityName = myActivity.getText().toString().trim();
-                String activityDate = myDateButton.getText().toString().trim();
-                String activityTime = myTimeButton.getText().toString().trim();
-
-                if(activityName.isEmpty()) {
-                    Toast.makeText(Activities.this, "Enter A Activity", Toast.LENGTH_SHORT).show();
+            if(activityName.isEmpty()) {
+                Toast.makeText(Activities.this, "Enter A Activity", Toast.LENGTH_SHORT).show();
+            } else {
+                if(activityDate.equals("") || activityTime.equals("")) {
+                    Toast.makeText(Activities.this, "Enter Date and/or Time", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(activityDate.equals("") || activityTime.equals("")) {
-                        Toast.makeText(Activities.this, "Enter Date and/or Time", Toast.LENGTH_SHORT).show();
-                    } else {
-                        addActivity(activityName, activityDate, activityTime);
-                    }
+                    addActivity(userID, activityName, activityDate, activityTime);
                 }
             }
         });
     }
 
-    private void addActivity(String activityName, String activityDate, String activityTime) {
-        String result = new SQLhelper(this).addHealthActivity(activityName, activityDate, activityTime);
+    private void addActivity(int userID, String activityName, String activityDate, String activityTime) {
+        String result = new SQLhelper(this).addHealthActivity(userID, activityName, activityDate, activityTime);
         setActivityAlarm(activityName, activityDate, activityTime);
+        Log.e("addActivity", String.valueOf(userID));
+        Log.e("addActivity", activityName);
+        Log.e("addActivity", activityDate);
+        Log.e("addActivity", activityTime);
         myActivity.setText("");
-        Toast.makeText(Activities.this, result, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
     }
 
     private void setActivityDate() {
-        final Calendar newActivityDate = Calendar.getInstance();
+        Calendar newActivityDate = Calendar.getInstance();
 
-        DatePickerDialog activityDate = new DatePickerDialog(Activities.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, final int year, final int month, final int day) {
-                myDateButton.setText(newActivityDate.get(Calendar.MONTH)
-                        + "-" + newActivityDate.get(Calendar.DAY_OF_MONTH)
-                        + "-" + newActivityDate.get(Calendar.YEAR));
-            }
-        }, newActivityDate.get(Calendar.YEAR), newActivityDate.get(Calendar.MONTH), newActivityDate.get(Calendar.DAY_OF_MONTH));
+        DatePickerDialog activityDate = new DatePickerDialog(this, (datePicker, year, month, day) -> myDateButton.setText((newActivityDate.get(Calendar.MONTH) + 1)
+                + "-" + newActivityDate.get(Calendar.DAY_OF_MONTH)
+                + "-" + newActivityDate.get(Calendar.YEAR)), newActivityDate.get(Calendar.YEAR), newActivityDate.get(Calendar.MONTH), newActivityDate.get(Calendar.DAY_OF_MONTH));
         activityDate.show();
     }
 
     private void setActivityTime() {
-        final Calendar newActivityTime = Calendar.getInstance();
+        Calendar newActivityTime = Calendar.getInstance();
 
-        TimePickerDialog activityTime = new TimePickerDialog(Activities.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, final int hour, final int minute) {
-                activityNotifyTime = hour + ":" + minute;
-                myTimeButton.setText(newActivityTime.get(Calendar.HOUR_OF_DAY) + ":" + newActivityTime.get(Calendar.MINUTE));
-            }
+        TimePickerDialog activityTime = new TimePickerDialog(this, (timePicker, hour, minute) -> {
+            activityNotifyTime = hour + ":" + minute;
+            myTimeButton.setText(newActivityTime.get(Calendar.HOUR_OF_DAY) + ":" + newActivityTime.get(Calendar.MINUTE));
         }, newActivityTime.get(Calendar.HOUR_OF_DAY), newActivityTime.get(Calendar.MINUTE), false);
         activityTime.show();
     }
@@ -109,23 +107,33 @@ public class Activities extends AppCompatActivity {
     private void setActivityAlarm(String activityName, String activityDate, String activityTime) {
         AlarmManager activityAlarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(Activities.this, ActivitiesAlarm.class);
+        Intent intent = new Intent(getApplicationContext(), ActivitiesAlarm.class);
         intent.putExtra("activityName", activityName);
         intent.putExtra("activityDate", activityDate);
         intent.putExtra("activityTime", activityTime);
+        Log.e("activites", activityName);
+        Log.e("activites", activityDate);
+        Log.e("activites", activityTime);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(Activities.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), UUID.randomUUID().hashCode(), intent, PendingIntent.FLAG_IMMUTABLE);
+        }
+        else
+        {
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), UUID.randomUUID().hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         String activityDateTime = activityDate + " " + activityNotifyTime;
-        DateFormat dateFormat = new SimpleDateFormat("d-M-yyyy hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm");
         try {
             Date date = dateFormat.parse(activityDateTime);
             activityAlarm.set(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
-            Toast.makeText(Activities.this, "Activity Alarm", Toast.LENGTH_SHORT).show();
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        Intent intentBack = new Intent(Activities.this, HealthActivity.class);
+        Intent intentBack = new Intent(getApplicationContext(), HealthActivity.class);
         intentBack.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intentBack);
     }
