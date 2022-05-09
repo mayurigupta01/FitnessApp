@@ -52,23 +52,28 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println(pass);
             if (email.equalsIgnoreCase(s_email) && pass.equalsIgnoreCase(s_pass)) {
                 Toast.makeText(LoginActivity.this, "You have successfully logged In", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(LoginActivity.this, "Invalid email and password combination , please try again", Toast.LENGTH_SHORT).show();
+                showHealthDashBoard(view);
+            } else {
+
+                Toast.makeText(LoginActivity.this, "Invalid email and password combination , please try again", Toast.LENGTH_LONG).show();
+                GobackToMain(view);
             }
 
         }
-        //clear field and go to Health DashBoard
-        email.setText("");
-        password.setText("");
-        showHealthDashBoard(view);
-
 
     }
 
 
     public void showHealthDashBoard(View view ) {
+        email.setText("");
+        password.setText("");
         Intent intent = new Intent(LoginActivity.this, HealthDashBoard.class);
+        startActivity(intent);
+    }
+
+
+    public void GobackToMain(View view ) {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }
