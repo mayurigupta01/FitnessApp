@@ -36,14 +36,13 @@ public class NutritionalHealth extends AppCompatActivity {
             }
         }
 
-    public void showData(String bmi)  {
-        //System.out.println(bmi);
-        //int BMI = Integer.parseInt(bmi);
-        //System.out.println(BMI);
-        int BMI = 5;
+    public void showData(String bmi) {
+        System.out.println(bmi);
+        int BMI = Integer.parseInt(bmi);
+        System.out.println(BMI);
         String api_url = null;
         if (BMI < 18) {
-            api_url= "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&minCarbs=40";
+            api_url = "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&minCarbs=40";
             Request request = new Request.Builder()
                     .url(api_url)
                     .build();
@@ -53,20 +52,45 @@ public class NutritionalHealth extends AppCompatActivity {
 
                 // Get response body
                 System.out.println(response.body().string());
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-        else {
-            api_url = "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&maxFat=40";
+        else if (BMI >= 18 && BMI <= 25) {
+            api_url = "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&minProtein=50";
+            Request request = new Request.Builder()
+                    .url(api_url)
+                    .build();
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                // Get response body
+                System.out.println(response.body().string());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    else {
+        api_url = "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&maxFat=40";
+            Request request = new Request.Builder()
+                    .url(api_url)
+                    .build();
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                // Get response body
+                System.out.println(response.body().string());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
-      //
-    //} else if (BMI >= 18 && BMI <= 25) {
-       // api_url = "https://api.spoonacular.com/recipes/findByNutrients?apiKey=5eea77c2389843fb9f350f1988193b27&minProtein=50";
 
+        }
     }
-}
+
+
 
