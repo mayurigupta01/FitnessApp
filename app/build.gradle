@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk  32
     useLibrary  'org.apache.http.legacy'
 
     defaultConfig {

@@ -41,7 +41,7 @@ public class Calculations extends AppCompatActivity implements AdapterView.OnIte
 
     public double calculateCaloricNeed() {
         double activityLevelValue;
-        double caloricNeed;
+        double caloricNeed = 0;
         double genderValue;
 
         switch(spinnerSelection) {

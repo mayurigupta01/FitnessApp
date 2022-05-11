@@ -1,5 +1,6 @@
 package com.example.fitnessapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,11 +28,37 @@ public class NutritionalHealth extends AppCompatActivity {
     private String customerEmail = MainActivity.customerEmail;
     // Async Task required to do HTTP calls, you can't do HTTP calls on main/UI thread in newer APIs
     MyAsyncTask1 myAsyncTask1 = new MyAsyncTask1();
+    String receipeTitle ;
+    String sourceUrl ;
+    double calorie ;
+    double protien ;
+    double fats ;
+    double carbohydrates;
+
+    TextView cal, prot , fat , carbs;
+    TextView recipe1 , receipe2 , receipe3 , url1 , url2 , url3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nutrional_suggestion);
+        cal = (TextView) findViewById(R.id.textsugg1);
+        prot = (TextView) findViewById(R.id.textsugg2);
+        fat = (TextView) findViewById(R.id.textsugg3);
+        carbs = (TextView)  findViewById(R.id.textsugg4);
+
+        recipe1 = (TextView) findViewById((R.id.textViewrecipe1));
+        url1 = (TextView) findViewById(R.id.textViewurl1);
+
+        receipe2 = (TextView) findViewById(R.id.textViewrecipe2);
+        url2 = (TextView) findViewById(R.id.textViewurl2);
+
+        receipe3 = (TextView) findViewById(R.id.textViewrecipe3);
+        url3 = (TextView) findViewById(R.id.textViewurl3);
+
+
+
         for (int i = 0; i < customerData.size(); i++) {
             if (customerEmail.equalsIgnoreCase(customerData.get(i).customerEmail)) {
                 try {
@@ -85,18 +113,55 @@ public class NutritionalHealth extends AppCompatActivity {
         }
 
         protected void onPostExecute(Boolean result) {
-            try {
-                String res = response.body().string();
+            ArrayList<String> data = new ArrayList<>();
+               try{
+                String res = response.body() != null ? response.body().string() : null;
                 JSONObject jsonObject = new JSONObject(res);
                 JSONArray jsonArray = jsonObject.getJSONArray("meals");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    System.out.println(object);
 
+                for (int i = 0; i < jsonArray.length() ; i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                     receipeTitle = (String) object.get("title");
+                     sourceUrl = (String) object.get("sourceUrl");
+                     data.add(receipeTitle);
+                     data.add(sourceUrl);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+                     JSONObject nutrientObject = (JSONObject) jsonObject.get("nutrients");
+
+                     calorie = (double) nutrientObject.get("calories");
+                     protien = (double) nutrientObject.get("protein");
+                     fats = (double) nutrientObject.get("fat");
+                     carbohydrates = (double) nutrientObject.get("carbohydrates");
+                     System.out.println(data.toString());
+                     System.out.println(calorie);
+                     System.out.println(protien);
+                     System.out.println(fats);
+                     System.out.println(carbohydrates);
+
+                     //show on UI
+                     cal.setText(Double.toString(calorie));
+                     prot.setText(Double.toString(protien));
+                     fat.setText(Double.toString(fats));
+                     carbs.setText(Double.toString(carbohydrates));
+
+                     //show recipes on UI
+                       recipe1.setText(data.get(0));
+                       String urlrec1 = data.get(1);
+                       url1.setText(urlrec1);
+
+
+
+                        String urlrec2 = data.get(3);
+                       receipe2.setText(data.get(2));
+                       url2.setText(data.get(3));
+
+
+                       String urlrec3 = data.get(5);
+                       receipe3.setText(data.get(4));
+                       url3.setText(data.get(5));
+
+
+            } catch (JSONException | IOException e) {
                 e.printStackTrace();
             }
         }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 
 public class SQLhelper extends SQLiteOpenHelper {
@@ -42,6 +44,11 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String WEIGHT_DATA_COL = "userWeight";
     private static final String CALORIE_DATA_COL = "userCalorie";
     private static final String WEIGHT_DATE_COL = "userWeightDate";
+
+    private static final String TABLE_DIET_DATA = "dietsuggestion";
+    private static final String SUGG_ID_COL = "suggestionid";
+    private static final String REC_TITLE_COL = "recepietitle";
+    private static final String SOURCE_URL_COL = "sourceurl";
 
 
     public SQLhelper(Context context) {
@@ -89,11 +96,17 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + WEIGHT_DATE_COL + " TEXT,"
                     + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
 
+            String dietSuggestionQuery = "CREATE TABLE " + TABLE_DIET_DATA + " ("
+                + SUGG_ID_COL + " TEXT,"
+                + REC_TITLE_COL + " TEXT,"
+                + SOURCE_URL_COL + " TEXT)";
+
             // at last we are calling a exec sql
             // method to execute above sql query
             db.execSQL(query);
             db.execSQL(activityQuery);
             db.execSQL(weightCalorieQuery);
+            db.execSQL(dietSuggestionQuery);
         }
 
 
@@ -131,6 +144,9 @@ public class SQLhelper extends SQLiteOpenHelper {
         // database after adding database.
         db.close();
     }
+
+
+    //add diet suggestion data to DB
 
     // Method to add a new health activity
     public String addHealthActivity(int userID, String activityName, String activityDate, String activityTime) {
@@ -196,6 +212,7 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET_DATA);
         onCreate(db);
     }
 

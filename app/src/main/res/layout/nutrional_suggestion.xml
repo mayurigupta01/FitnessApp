@@ -5,17 +5,166 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_primary_dark"
+    android:background="@color/white"
     tools:context=".NutritionalHealth">
 
+
+    <TextView
+        android:id="@+id/textViewrecipe3"
+        android:layout_width="379dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:text="recipe3"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewurl2" />
+
+    <TextView
+        android:id="@+id/textViewurl2"
+        android:layout_width="375dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:text="url2"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textAlignment="viewStart"
+        android:textColor="#2259FF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewrecipe2" />
+
+    <TextView
+        android:id="@+id/textViewurl3"
+        android:layout_width="378dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:text="url3"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textAlignment="viewStart"
+        android:textColor="#222DFF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewrecipe3" />
+
+    <TextView
+        android:id="@+id/textViewrecipe2"
+        android:layout_width="379dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="recipe2"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewurl1" />
+
+    <TextView
+        android:id="@+id/textViewurl1"
+        android:layout_width="377dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="url1"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textAlignment="viewStart"
+        android:textColor="#2226FF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewrecipe1" />
+
+    <TextView
+        android:id="@+id/textViewrecipe1"
+        android:layout_width="373dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="recipe1"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome2" />
+
+    <TextView
+        android:id="@+id/textViewShowWelcome2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try out the recipes below!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#03E30C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"/>
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="129dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="188dp"
+        android:text="Carbohydrates:"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="123dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="140dp"
+        android:text="Fats:"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="116dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:text="Protein:"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome" />
 
     <TextView
         android:id="@+id/textViewShowWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here are you diet suggestions"
+        android:text="Here is you daily diet suggestion"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFE"
+        android:textColor="#03E30C"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,17 +177,82 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20dp"
+        android:id="@+id/textsugg1"
+        android:layout_width="247dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome" />
 
+    <TextView
+        android:id="@+id/textsugg2"
+        android:layout_width="244dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textsugg1" />
+
+    <TextView
+        android:id="@+id/textsugg3"
+        android:layout_width="243dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textsugg2" />
+
+    <TextView
+        android:id="@+id/textsugg4"
+        android:layout_width="242dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textsugg3" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="116dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="Calories:"
+        android:textAlignment="viewStart"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowWelcome" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
