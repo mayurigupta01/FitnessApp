@@ -38,6 +38,12 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String PASSWORD_COL = "password";
     private static final String BMI_COL = "bmi";
 
+    private static final String TABLE_WEIGHT = "weight";
+    private static final String WEIGHT_DATA_COL = "userWeight";
+    private static final String CALORIE_DATA_COL = "userCalorie";
+    private static final String WEIGHT_DATE_COL = "userWeightDate";
+
+
     public SQLhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -75,12 +81,19 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + ACTIVITY_DATE_COL + " TEXT,"
                     + ACTIVITY_TIME_COL + " TEXT,"
                     + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
-            //String activityQuery = "create table " + TABLE_ACTIVITIES + " (id integer primary key autoincrement, " + ACTIVITY_COL + " text, " + ACTIVITY_DATE_COL + " text, " + ACTIVITY_TIME_COL + " text)";
+
+            String weightCalorieQuery = "CREATE TABLE " + TABLE_WEIGHT + " ("
+                    + ID_COL + " TEXT,"
+                    + WEIGHT_DATA_COL + " TEXT,"
+                    + CALORIE_DATA_COL + " TEXT,"
+                    + WEIGHT_DATE_COL + " TEXT,"
+                    + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
 
             // at last we are calling a exec sql
             // method to execute above sql query
             db.execSQL(query);
             db.execSQL(activityQuery);
+            db.execSQL(weightCalorieQuery);
         }
 
 
@@ -148,11 +161,41 @@ public class SQLhelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // Method to add a new weight, calories and date
+    public String addWeight(int userID, String userWeight, String userCalorie, String userWeightDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(ID_COL, userID);
+        values.put(WEIGHT_DATA_COL, userWeight);
+        values.put(CALORIE_DATA_COL, userCalorie);
+        values.put(WEIGHT_DATE_COL, userWeightDate);
+
+        long result = db.insert(TABLE_WEIGHT, null, values);
+
+        db.close();
+
+        if(result == -1) {
+            return "Failed to add weight/calorie data";
+        } else {
+            return "Successfully added weight/calorie data";
+        }
+    }
+
+    public Cursor getWeightData(int userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String activityQuery = "SELECT * FROM " + TABLE_WEIGHT + " WHERE user_id = " + userID + " ORDER BY " + WEIGHT_DATE_COL + " ASC";
+        Cursor cursor = db.rawQuery(activityQuery, null);
+        return cursor;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // this method is called to check if the table exists already.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         onCreate(db);
     }
 

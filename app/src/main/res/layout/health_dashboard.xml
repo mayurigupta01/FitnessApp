@@ -139,5 +139,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNutritional" />
 
+    <TextView
+        android:id="@+id/textViewWeight"
+        android:layout_width="193dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:text="Track Your Weight"
+        android:onClick="weightActivity"
+        android:textColor="#FF5722"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMentalHealth" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

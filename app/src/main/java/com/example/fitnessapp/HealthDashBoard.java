@@ -87,4 +87,9 @@ public class HealthDashBoard extends AppCompatActivity {
         Intent intent = new Intent(HealthDashBoard.this, HealthActivity.class);
         startActivity(intent);
     }
+
+    public void weightActivity(View view) {
+        Intent intent = new Intent(HealthDashBoard.this, WeightActivity.class);
+        startActivity(intent);
+    }
 }
