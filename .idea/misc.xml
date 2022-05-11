@@ -5,13 +5,17 @@
       <map>
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/drawable/alarm.xml" value="0.2335" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/drawable/fab_icon.xml" value="0.194" />
+        <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/drawable/spinner_background.xml" value="0.194" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_activities.xml" value="0.20643363728470113" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_activities_notification.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_adapter.xml" value="0.2509057971014493" />
+        <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_add_weight.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_alarm.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_calculations.xml" value="0.2509057971014493" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_health.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_login.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/activity_track_weight.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/health_activities_notification.xml" value="0.2" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/health_activity_layout.xml" value="0.264" />
         <entry key="..\:/Users/Martin Duong/Desktop/FitnessApp/app/src/main/res/layout/health_dashboard.xml" value="0.4" />

@@ -44,6 +44,15 @@
         <activity
             android:name=".WeightLoss"
             android:exported="false" />
+        <activity
+            android:name=".WeightActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddWeight"
+            android:exported="false" />
+        <activity
+            android:name=".Calculations"
+            android:exported="false" />
 
         <activity
             android:name="com.example.fitnessapp.MainActivity"

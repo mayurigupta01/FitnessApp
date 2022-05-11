@@ -48,9 +48,7 @@ public class Activities extends AppCompatActivity {
         mySubmitButton = findViewById(R.id.submitButton);
 
         myDateButton.setOnClickListener(view -> setActivityDate());
-
         myTimeButton.setOnClickListener(view -> setActivityTime());
-
         mySubmitButton.setOnClickListener(view -> {
             String activityName = myActivity.getText().toString().trim();
             String activityDate = myDateButton.getText().toString().trim();
@@ -77,20 +75,25 @@ public class Activities extends AppCompatActivity {
     private void addActivity(int userID, String activityName, String activityDate, String activityTime) {
         String result = new SQLhelper(this).addHealthActivity(userID, activityName, activityDate, activityTime);
         setActivityAlarm(activityName, activityDate, activityTime);
-        Log.e("addActivity", String.valueOf(userID));
-        Log.e("addActivity", activityName);
-        Log.e("addActivity", activityDate);
-        Log.e("addActivity", activityTime);
         myActivity.setText("");
         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
     }
 
+//    private void setActivityDate() {
+//        Calendar newActivityDate = Calendar.getInstance();
+//
+//        DatePickerDialog activityDate = new DatePickerDialog(this, (datePicker, year, month, day) -> myDateButton.setText((newActivityDate.get(Calendar.MONTH) + 1)
+//                + "-" + newActivityDate.get(Calendar.DAY_OF_MONTH)
+//                + "-" + newActivityDate.get(Calendar.YEAR)), newActivityDate.get(Calendar.YEAR), newActivityDate.get(Calendar.MONTH), newActivityDate.get(Calendar.DAY_OF_MONTH));
+//        activityDate.show();
+//    }
+
     private void setActivityDate() {
         Calendar newActivityDate = Calendar.getInstance();
-
-        DatePickerDialog activityDate = new DatePickerDialog(this, (datePicker, year, month, day) -> myDateButton.setText((newActivityDate.get(Calendar.MONTH) + 1)
-                + "-" + newActivityDate.get(Calendar.DAY_OF_MONTH)
-                + "-" + newActivityDate.get(Calendar.YEAR)), newActivityDate.get(Calendar.YEAR), newActivityDate.get(Calendar.MONTH), newActivityDate.get(Calendar.DAY_OF_MONTH));
+        int year = newActivityDate.get(Calendar.YEAR);
+        int month = newActivityDate.get(Calendar.MONTH);
+        int day = newActivityDate.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog activityDate = new DatePickerDialog(this, (datePicker, year1, month1, day1) -> myDateButton.setText((month1 + 1) + "-" + day1 + "-" + year1), year, month, day);
         activityDate.show();
     }
 
@@ -111,10 +114,6 @@ public class Activities extends AppCompatActivity {
         intent.putExtra("activityName", activityName);
         intent.putExtra("activityDate", activityDate);
         intent.putExtra("activityTime", activityTime);
-        Log.e("activites", activityName);
-        Log.e("activites", activityDate);
-        Log.e("activites", activityTime);
-
 
         PendingIntent pendingIntent = null;
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
