@@ -40,7 +40,7 @@ public class ActivitiesAlarm extends BroadcastReceiver {
         notifyBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.activity_alarm);
-        remoteViews.setImageViewResource(R.id.icon, R.mipmap.ic_launcher);
+        remoteViews.setImageViewResource(R.id.icon, R.drawable.ic_baseline_directions_run_100);
         remoteViews.setTextViewText(R.id.activityName, activityName);
         remoteViews.setTextViewText(R.id.activityDateTime, activityDateTime);
         notifyBuilder.setSmallIcon(R.drawable.alarm);

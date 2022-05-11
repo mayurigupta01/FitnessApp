@@ -50,6 +50,9 @@
         <activity
             android:name=".AddWeight"
             android:exported="false" />
+        <activity
+            android:name=".Calculations"
+            android:exported="false" />
 
         <activity
             android:name="com.example.fitnessapp.MainActivity"
