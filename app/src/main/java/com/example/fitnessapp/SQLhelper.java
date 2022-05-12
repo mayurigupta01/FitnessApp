@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.google.android.material.tabs.TabLayout;
@@ -39,6 +41,7 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String DAILYCALORIE_COL = "dailycalorie";
     private static final String PASSWORD_COL = "password";
     private static final String BMI_COL = "bmi";
+    private static final String DAILY_CALORIE_COL = "dailyCalorieCalculation";
 
     private static final String TABLE_WEIGHT = "weight";
     private static final String WEIGHT_DATA_COL = "userWeight";
@@ -49,6 +52,9 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String SUGG_ID_COL = "suggestionid";
     private static final String REC_TITLE_COL = "recepietitle";
     private static final String SOURCE_URL_COL = "sourceurl";
+
+//    private static final String TABLE_DAILY_CALORIE = "calorie";
+//    private static final String DAILY_CALORIE_COL = "dailyCalorie";
 
 
     public SQLhelper(Context context) {
@@ -79,7 +85,8 @@ public class SQLhelper extends SQLiteOpenHelper {
                     + MENTALCONDITION_COL + " TEXT,"
                     + DAILYCALORIE_COL + " TEXT,"
                     + BMI_COL + " TEXT,"
-                    + PASSWORD_COL +" TEXT)";
+                    + PASSWORD_COL +" TEXT,"
+                    + DAILY_CALORIE_COL + " INTEGER DEFAULT 0)";
 
             String activityQuery = "CREATE TABLE " + TABLE_ACTIVITIES + " ("
                     //+ ACTIVITY_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -101,12 +108,18 @@ public class SQLhelper extends SQLiteOpenHelper {
                 + REC_TITLE_COL + " TEXT,"
                 + SOURCE_URL_COL + " TEXT)";
 
+//            String dailyCalorieQuery = "CREATE TABLE " + TABLE_DAILY_CALORIE + " ("
+//                    + ID_COL + " TEXT,"
+//                    + DAILY_CALORIE_COL + " INTEGER DEFAULT 0,"
+//                    + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+
             // at last we are calling a exec sql
             // method to execute above sql query
             db.execSQL(query);
             db.execSQL(activityQuery);
             db.execSQL(weightCalorieQuery);
             db.execSQL(dietSuggestionQuery);
+//            db.execSQL(dailyCalorieQuery);
         }
 
 
@@ -206,6 +219,45 @@ public class SQLhelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public String updateDailyCalorie(int userID, int dailyCalorie) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        Log.e("dailycalorie", String.valueOf(dailyCalorie));
+
+        values.put(DAILY_CALORIE_COL, dailyCalorie);
+
+        long result = db.update(TABLE_NAME, values, ID_COL + " = ?", new String[]{String.valueOf(userID)});
+
+        db.close();
+
+        if(result == -1) {
+            return "Failed to update daily calorie data";
+        } else {
+            return "Successfully updated daily calorie data";
+        }
+    }
+
+//    public String addDailyCalorie(int userID, int dailyCalorie) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//
+//        values.put(ID_COL, userID);
+//        values.put(DAILY_CALORIE_COL, dailyCalorie);
+//
+//        long result = db.insert(TABLE_DAILY_CALORIE, null, values);
+//
+//        db.close();
+//
+//        if(result == -1) {
+//            return "Failed to add daily calorie data";
+//        } else {
+//            return "Successfully added daily calorie data";
+//        }
+//    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // this method is called to check if the table exists already.
@@ -213,6 +265,7 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET_DATA);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DAILY_CALORIE);
         onCreate(db);
     }
 
@@ -240,7 +293,8 @@ public class SQLhelper extends SQLiteOpenHelper {
                         cursorCourses.getString(10),
                         cursorCourses.getString(11),
                         cursorCourses.getString(12),
-                        cursorCourses.getString(13)));
+                        cursorCourses.getString(13),
+                        cursorCourses.getInt(14)));
             }
             while (cursorCourses.moveToNext()) ;
         }
