@@ -95,4 +95,9 @@ public class HealthDashBoard extends AppCompatActivity {
         Intent intent = new Intent(HealthDashBoard.this, Calculations.class);
         startActivity(intent);
     }
+
+    public void stepSensorActivity(View view) {
+        Intent intent = new Intent(HealthDashBoard.this, StepSensor.class);
+        startActivity(intent);
+    }
 }

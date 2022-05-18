@@ -1,6 +1,5 @@
 package com.example.fitnessapp;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,8 +22,10 @@ import okhttp3.Response;
 
 public class NutritionalHealth extends AppCompatActivity {
 
+
     private List<CustomerModel> customerData = ProfileCreation.customerData;
     private String customerEmail = ProfileCreation.customerEmail;
+
     // Async Task required to do HTTP calls, you can't do HTTP calls on main/UI thread in newer APIs
     MyAsyncTask1 myAsyncTask1 = new MyAsyncTask1();
     String receipeTitle ;
@@ -42,7 +42,18 @@ public class NutritionalHealth extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nutrional_suggestion);
+        setContentView(R.layout.nutritional_suggestion);
+
+        int dailyCalorie = 0;
+        double bmi = 0.0;
+
+        for(int i = 0; i < customerData.size(); i++) {
+            if(customerData.get(i).customerEmail.equalsIgnoreCase(customerEmail)) {
+                dailyCalorie = customerData.get(i).dailyCalorie;
+                bmi = Double.valueOf(customerData.get(i).customerbmi);
+            }
+        }
+
         cal = (TextView) findViewById(R.id.textsugg1);
         prot = (TextView) findViewById(R.id.textsugg2);
         fat = (TextView) findViewById(R.id.textsugg3);
@@ -62,7 +73,7 @@ public class NutritionalHealth extends AppCompatActivity {
         for (int i = 0; i < customerData.size(); i++) {
             if (customerEmail.equalsIgnoreCase(customerData.get(i).customerEmail)) {
                 try {
-                    showData(customerData.get(i).customerbmi);
+                    showData(bmi, dailyCalorie);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -71,16 +82,21 @@ public class NutritionalHealth extends AppCompatActivity {
         }
     }
 
-    public void showData(String bmi) throws IOException, JSONException {
-        int BMI = 5;
+    public void showData(double bmi, int dailyCalorie) throws IOException, JSONException {
         String api_url = null;
-        if (BMI < 18) {
-            api_url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?timeFrame=day&targetCalories=2000&diet=vegan";
+        Log.e("NutritionActivity", String.valueOf(dailyCalorie));
+        if (bmi < 18) {
+            api_url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?timeFrame=day&targetCalories=" + dailyCalorie;
+            Log.e("api_url", api_url);
             myAsyncTask1.execute(api_url);
-        } else if (BMI >= 18 && BMI <= 25) {
-            api_url = "";
+        } else if (bmi >= 18 && bmi <= 25) {
+            api_url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?timeFrame=day&targetCalories=" + dailyCalorie;
+            Log.e("api_url", api_url);
+            myAsyncTask1.execute(api_url);
         } else {
-            api_url = "";
+            api_url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?timeFrame=day&targetCalories=" + dailyCalorie;
+            Log.e("api_url", api_url);
+            myAsyncTask1.execute(api_url);
         }
     }
 
@@ -89,7 +105,6 @@ public class NutritionalHealth extends AppCompatActivity {
 
         private final OkHttpClient httpClient = new OkHttpClient();
         Response response = null;
-        ArrayList<Object> nutritionList = new ArrayList<>();
 
         @Override
         protected Boolean doInBackground(String... url) {

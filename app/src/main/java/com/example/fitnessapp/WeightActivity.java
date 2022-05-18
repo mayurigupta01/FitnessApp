@@ -71,12 +71,12 @@ public class WeightActivity extends AppCompatActivity {
         Linear scalesLinearCalories = Linear.instantiate();
         //scalesLinearCalories.minimum(0);
         //scalesLinearCalories.maximum(3000);
-        scalesLinearCalories.ticks("{ interval: 200 }");
+        scalesLinearCalories.ticks("{ interval: 50 }");
 
         Linear scalesLinearWeight = Linear.instantiate();
         //scalesLinearWeight.minimum(0);
         //scalesLinearWeight.maximum(300);
-        scalesLinearWeight.ticks("{ interval: 50 }");
+        scalesLinearWeight.ticks("{ interval: 10 }");
 
         cartesian.animation(true);
         cartesian.padding(10d, 20d, 5d, 20d);
