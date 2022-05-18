@@ -24,8 +24,8 @@ import okhttp3.Response;
 
 public class NutritionalHealth extends AppCompatActivity {
 
-    private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private List<CustomerModel> customerData = ProfileCreation.customerData;
+    private String customerEmail = ProfileCreation.customerEmail;
     // Async Task required to do HTTP calls, you can't do HTTP calls on main/UI thread in newer APIs
     MyAsyncTask1 myAsyncTask1 = new MyAsyncTask1();
     String receipeTitle ;

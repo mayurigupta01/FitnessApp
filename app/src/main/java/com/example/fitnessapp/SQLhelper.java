@@ -239,8 +239,7 @@ public class SQLhelper extends SQLiteOpenHelper {
                         cursorCourses.getString(9),
                         cursorCourses.getString(10),
                         cursorCourses.getString(11),
-                        cursorCourses.getString(12),
-                        cursorCourses.getString(13)));
+                        cursorCourses.getString(12)));
             }
             while (cursorCourses.moveToNext()) ;
         }

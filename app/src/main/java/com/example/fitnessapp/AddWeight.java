@@ -16,8 +16,8 @@ public class AddWeight extends AppCompatActivity {
     Button mySubmitButton, myDateButton;
     private EditText weightValue, calorieValue;
 
-    private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private List<CustomerModel> customerData = ProfileCreation.customerData;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     @Override

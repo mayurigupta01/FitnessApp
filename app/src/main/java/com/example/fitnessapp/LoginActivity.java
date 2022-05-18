@@ -1,5 +1,6 @@
 package com.example.fitnessapp;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String s_email, s_pass;
 
-    private List<CustomerModel> customerDetails = MainActivity.customerData;
+    private List<CustomerModel> customerDetails = ProfileCreation.customerData;
 
 
     @Override
@@ -36,21 +37,25 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickLogin(View view) {
         Log.e("loginDetails", "login into app");
         s_email = email.getText().toString();
-        MainActivity.customerEmail = s_email;
+        ProfileCreation.customerEmail = s_email;
         s_pass = password.getText().toString();
 
         // validating if email is correct
+
+
         Log.e("loginDetails", "Validating login data");
         for (int i = 0; i < customerDetails.size(); i++) {
             System.out.println("Reading customer data");
             //set the customer name
-            MainActivity.customerName = customerDetails.get(i).customerName;
-            System.out.println(MainActivity.customerName);
+            ProfileCreation.customerName = customerDetails.get(i).customerName;
+            System.out.println(ProfileCreation.customerName);
             String email = customerDetails.get(i).customerEmail;
             System.out.println(email);
-            String pass = customerDetails.get(i).customerPassword;
-            System.out.println(pass);
-            if (email.equalsIgnoreCase(s_email) && pass.equalsIgnoreCase(s_pass)) {
+
+            //validate Login with Firebase authentication
+
+
+            if (email.equalsIgnoreCase(s_email)) {
                 Toast.makeText(LoginActivity.this, "You have successfully logged In", Toast.LENGTH_SHORT).show();
                 showHealthDashBoard(view);
             } else {
@@ -76,5 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+
 }
 

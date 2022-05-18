@@ -34,8 +34,8 @@ public class WeightActivity extends AppCompatActivity {
     FloatingActionButton newWeightButton;
     ArrayList<WeightModel> myWeightValues = new ArrayList<WeightModel>();
 
-    private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private List<CustomerModel> customerData = ProfileCreation.customerData;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     @Override

@@ -38,6 +38,7 @@
             android:name=".HealthDashBoard"
             android:exported="false" />
 
+
         <activity
             android:name=".NutritionalHealth"
             android:exported="false" />
@@ -52,6 +53,10 @@
             android:exported="false" />
         <activity
             android:name=".Calculations"
+            android:exported="false" />
+
+        <activity
+            android:name=".ProfileCreation"
             android:exported="false" />
 
         <activity

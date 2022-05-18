@@ -1,23 +1,21 @@
 package com.example.fitnessapp;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class HealthDashBoard extends AppCompatActivity {
-     private List<CustomerModel> customerData = MainActivity.customerData;
-     private String customerName = MainActivity.customerName;
-     private String customerEmail = MainActivity.customerEmail;
+     private List<CustomerModel> customerData = ProfileCreation.customerData;
+     private String customerName = ProfileCreation.customerName;
+     private String customerEmail = ProfileCreation.customerEmail;
      private String healthIndex;
      TextView showIndex;
 
@@ -78,7 +76,7 @@ public class HealthDashBoard extends AppCompatActivity {
     }
 
     public void showNutritionalFitness(View v){
-        Log.e("nutritional fitness" , "getting nutrional health data ");
+        Log.e("nutritional fitness" , "getting nutritional health data ");
         Intent intent = new Intent(HealthDashBoard.this, NutritionalHealth.class);
         startActivity(intent);
     }

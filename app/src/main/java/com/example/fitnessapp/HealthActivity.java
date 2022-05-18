@@ -25,7 +25,7 @@ public class HealthActivity extends AppCompatActivity {
     ActivitiesAdapter myActivitiesAdapter;
 
     private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
 

@@ -33,8 +33,8 @@ public class Activities extends AppCompatActivity {
     private EditText myActivity;
     String activityNotifyTime;
 
-    private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private List<CustomerModel> customerData = ProfileCreation.customerData;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     @Override
