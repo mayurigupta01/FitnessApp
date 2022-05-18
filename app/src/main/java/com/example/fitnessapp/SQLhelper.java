@@ -53,6 +53,10 @@ public class SQLhelper extends SQLiteOpenHelper {
     private static final String REC_TITLE_COL = "recepietitle";
     private static final String SOURCE_URL_COL = "sourceurl";
 
+    private static final String TABLE_STEPS = "steps";
+    private static final String STEPS_COL = "userSteps";
+    private static final String STEPS_DATE_COL = "userStepDate";
+
 //    private static final String TABLE_DAILY_CALORIE = "calorie";
 //    private static final String DAILY_CALORIE_COL = "dailyCalorie";
 
@@ -108,6 +112,12 @@ public class SQLhelper extends SQLiteOpenHelper {
                 + REC_TITLE_COL + " TEXT,"
                 + SOURCE_URL_COL + " TEXT)";
 
+            String stepQuery = "CREATE TABLE " + TABLE_STEPS + " ("
+                + ID_COL + " TEXT,"
+                + STEPS_COL + " TEXT,"
+                + STEPS_DATE_COL + " TEXT,"
+                + " FOREIGN KEY(" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+
 //            String dailyCalorieQuery = "CREATE TABLE " + TABLE_DAILY_CALORIE + " ("
 //                    + ID_COL + " TEXT,"
 //                    + DAILY_CALORIE_COL + " INTEGER DEFAULT 0,"
@@ -119,6 +129,7 @@ public class SQLhelper extends SQLiteOpenHelper {
             db.execSQL(activityQuery);
             db.execSQL(weightCalorieQuery);
             db.execSQL(dietSuggestionQuery);
+            db.execSQL(stepQuery);
 //            db.execSQL(dailyCalorieQuery);
         }
 
@@ -214,8 +225,8 @@ public class SQLhelper extends SQLiteOpenHelper {
 
     public Cursor getWeightData(int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String activityQuery = "SELECT * FROM " + TABLE_WEIGHT + " WHERE user_id = " + userID + " ORDER BY " + WEIGHT_DATE_COL + " ASC";
-        Cursor cursor = db.rawQuery(activityQuery, null);
+        String weightQuery = "SELECT * FROM " + TABLE_WEIGHT + " WHERE user_id = " + userID + " ORDER BY " + WEIGHT_DATE_COL + " ASC";
+        Cursor cursor = db.rawQuery(weightQuery, null);
         return cursor;
     }
 
@@ -237,6 +248,34 @@ public class SQLhelper extends SQLiteOpenHelper {
         } else {
             return "Successfully updated daily calorie data";
         }
+    }
+
+    // Method to add a steps and date
+    public String addSteps(int userID, String userSteps, String userStepsDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(ID_COL, userID);
+        values.put(STEPS_COL, userSteps);
+        values.put(STEPS_DATE_COL, userStepsDate);
+
+        long result = db.insert(TABLE_STEPS, null, values);
+
+        db.close();
+
+        if(result == -1) {
+            return "Failed to add steps data";
+        } else {
+            return "Successfully added steps data";
+        }
+    }
+
+    public Cursor getStepData(int userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String stepsQuery = "SELECT * FROM " + TABLE_STEPS + " WHERE user_id = " + userID + " ORDER BY " + STEPS_DATE_COL + " ASC";
+        Cursor cursor = db.rawQuery(stepsQuery, null);
+        return cursor;
     }
 
 //    public String addDailyCalorie(int userID, int dailyCalorie) {
@@ -265,6 +304,7 @@ public class SQLhelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEIGHT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIET_DATA);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STEPS);
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DAILY_CALORIE);
         onCreate(db);
     }
