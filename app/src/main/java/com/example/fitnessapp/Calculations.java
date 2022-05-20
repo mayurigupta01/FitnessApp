@@ -17,7 +17,7 @@ import java.util.List;
 public class Calculations extends AppCompatActivity {
 
     private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     Spinner activityLevelSpinner, genderSpinner;

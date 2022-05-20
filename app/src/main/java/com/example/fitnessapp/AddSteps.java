@@ -18,7 +18,7 @@ public class AddSteps extends AppCompatActivity {
     private EditText stepsValue;
 
     private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     @Override

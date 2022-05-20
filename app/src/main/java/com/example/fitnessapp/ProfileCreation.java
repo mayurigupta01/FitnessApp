@@ -1,6 +1,7 @@
 package com.example.fitnessapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,12 +11,29 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class ProfileCreation  extends AppCompatActivity {
 
@@ -27,6 +45,9 @@ public class ProfileCreation  extends AppCompatActivity {
     String s_name , s_email , s_gender , s_weight , s_height , s_age ,
             s_sleepHrs , s_waterIntake , s_physicalCondition ,
             s_medicalCondition , s_dailyCalorieIntake  , s_bmi,s_password;
+
+    public static BMI b;
+    MyAsyncTask2 myAsyncTask2 = new MyAsyncTask2();
 
     private FirebaseAuth mAuth;
     private SQLhelper sqlhelper;
@@ -119,8 +140,12 @@ public class ProfileCreation  extends AppCompatActivity {
         s_medicalCondition = medicalCondition.getText().toString();
         s_physicalCondition = physicalCondition.getText().toString();
         s_dailyCalorieIntake = dailyCalorieIntake.getText().toString();
-        int bmi =  Integer.parseInt(s_weight) * 703 / ( Integer.parseInt(s_height ) * Integer.parseInt(s_height));
-        s_bmi = Integer.toString(bmi);
+
+        //find bmi
+        myAsyncTask2.execute();
+
+        //int bmi =  Integer.parseInt(s_weight) * 703 / ( Integer.parseInt(s_height ) * Integer.parseInt(s_height));
+        s_bmi = Float.toString(b.bmi);
 
 
     }
@@ -144,6 +169,31 @@ public class ProfileCreation  extends AppCompatActivity {
         dailyCalorieIntake.setText("");
     }
 
+    public class MyAsyncTask2 extends AsyncTask<String, Void, Boolean> {
 
+        private final OkHttpClient httpClient = new OkHttpClient();
+        ResponseBody response = null;
+
+        @Override
+        protected Boolean doInBackground(String... url) {
+
+            String json = "{\"height\":163,\"weight\":155}";
+            RequestBody body = RequestBody.create(
+                    MediaType.parse("application/json"), json);
+            Request request = new Request.Builder()
+                    .url("https://kb3xg6iphe.execute-api.us-west-2.amazonaws.com/dev/bmi")
+                    .post(body)
+                    .build();
+            Call call = httpClient.newCall(request);
+            try {
+                response = call.execute().body();
+                ObjectMapper objectMapper = new ObjectMapper();
+                b = objectMapper.readValue(response.string() , BMI.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
 
 }

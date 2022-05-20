@@ -40,7 +40,7 @@ public class StepSensor extends AppCompatActivity {
     ArrayList<StepModel> myStepValues = new ArrayList<StepModel>();
 
     private List<CustomerModel> customerData = MainActivity.customerData;
-    private String customerEmail = MainActivity.customerEmail;
+    private String customerEmail = ProfileCreation.customerEmail;
     int userID;
 
     SensorManager mSensorManager = null;

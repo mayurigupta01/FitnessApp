@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         sqlhelper = new SQLhelper(MainActivity.this);
         email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
+        password = (EditText) findViewById(R.id.editTextTextPassword);
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("userProfile");
 
