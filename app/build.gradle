@@ -7,6 +7,22 @@ plugins {
 android {
     compileSdk  32
     useLibrary  'org.apache.http.legacy'
+    applicationVariants.all { variant ->
+        // Return compile configuration objects of a variant.
+        variant.getCompileConfiguration().resolutionStrategy {
+            // Use Gradle's ResolutionStrategy API
+            // to customize how this variant resolves dependencies.
+
+        }
+        // Return runtime configuration objects of a variant.
+        variant.getRuntimeConfiguration().resolutionStrategy {
+
+        }
+        // Return annotation processor configuration of a variant.
+        variant.getAnnotationProcessorConfiguration().resolutionStrategy {
+
+        }
+    }
 
     defaultConfig {
         applicationId "com.example.fitnessapp"
@@ -46,7 +62,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
-    implementation group: 'org.apache.spark', name: 'spark-core_2.10', version: '0.9.0-incubating'
+
 
 }
 

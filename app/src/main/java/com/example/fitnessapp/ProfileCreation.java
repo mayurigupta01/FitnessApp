@@ -47,7 +47,7 @@ public class ProfileCreation  extends AppCompatActivity {
             s_medicalCondition , s_dailyCalorieIntake  , s_bmi,s_password;
 
     public static BMI b;
-    MyAsyncTask2 myAsyncTask2 = new MyAsyncTask2();
+   // MyAsyncTask2 myAsyncTask2 = new MyAsyncTask2();
 
     private FirebaseAuth mAuth;
     private SQLhelper sqlhelper;
@@ -142,10 +142,10 @@ public class ProfileCreation  extends AppCompatActivity {
         s_dailyCalorieIntake = dailyCalorieIntake.getText().toString();
 
         //find bmi
-        myAsyncTask2.execute();
+        //myAsyncTask2.execute();
 
-        //int bmi =  Integer.parseInt(s_weight) * 703 / ( Integer.parseInt(s_height ) * Integer.parseInt(s_height));
-        s_bmi = Float.toString(b.bmi);
+        int bmi =  Integer.parseInt(s_weight) * 703 / ( Integer.parseInt(s_height ) * Integer.parseInt(s_height));
+        s_bmi = Integer.toString(bmi);
 
 
     }
@@ -169,7 +169,7 @@ public class ProfileCreation  extends AppCompatActivity {
         dailyCalorieIntake.setText("");
     }
 
-    public class MyAsyncTask2 extends AsyncTask<String, Void, Boolean> {
+    /*public class MyAsyncTask2 extends AsyncTask<String, Void, Boolean> {
 
         private final OkHttpClient httpClient = new OkHttpClient();
         ResponseBody response = null;
@@ -194,6 +194,6 @@ public class ProfileCreation  extends AppCompatActivity {
             }
             return false;
         }
-    }
+    }*/
 
 }
