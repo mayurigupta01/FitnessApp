@@ -97,13 +97,25 @@ public class Activities extends AppCompatActivity {
         activityDate.show();
     }
 
+//    private void setActivityTime() {
+//        Calendar newActivityTime = Calendar.getInstance();
+//
+//        TimePickerDialog activityTime = new TimePickerDialog(this, (timePicker, hour, minute) -> {
+//            activityNotifyTime = hour + ":" + minute;
+//            myTimeButton.setText(newActivityTime.get(Calendar.HOUR_OF_DAY) + ":" + newActivityTime.get(Calendar.MINUTE));
+//        }, newActivityTime.get(Calendar.HOUR_OF_DAY), newActivityTime.get(Calendar.MINUTE), false);
+//        activityTime.show();
+//    }
+
     private void setActivityTime() {
         Calendar newActivityTime = Calendar.getInstance();
+        int hour = newActivityTime.get(Calendar.HOUR_OF_DAY);
+        int minute = newActivityTime.get(Calendar.MINUTE);
 
-        TimePickerDialog activityTime = new TimePickerDialog(this, (timePicker, hour, minute) -> {
-            activityNotifyTime = hour + ":" + minute;
-            myTimeButton.setText(newActivityTime.get(Calendar.HOUR_OF_DAY) + ":" + newActivityTime.get(Calendar.MINUTE));
-        }, newActivityTime.get(Calendar.HOUR_OF_DAY), newActivityTime.get(Calendar.MINUTE), false);
+        TimePickerDialog activityTime = new TimePickerDialog(this, (timePicker, hour1, minute1) -> {
+            activityNotifyTime = hour1 + ":" + minute1;
+            myTimeButton.setText(hour1 + ":" + minute1);
+        }, hour, minute, false);
         activityTime.show();
     }
 
